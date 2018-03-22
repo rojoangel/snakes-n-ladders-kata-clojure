@@ -1,10 +1,8 @@
 (ns snakes-n-ladders.core-test
   (:require [clojure.test :refer :all]
             [snakes-n-ladders.core :refer :all]
+            [snakes-n-ladders.dice :as dice]
             [clojure.spec.alpha :as s]))
-
-(defn dice-spec [& {:keys [min max]}]
-  (s/int-in min (inc max)))
 
 (deftest moving-your-token
   (testing "Token can move accross the board"
@@ -31,7 +29,7 @@
           (is))))
   (testing "Moves are determined by dice rolls"
     (testing "When the player rolls a dice then the result should be between 1-6 inclusive"
-      (do (s/def ::dice-roll (dice-spec :min 1 :max 6))
+      (do (s/def ::dice-roll (dice/roll-spec :min 1 :max 6))
         (is (not (s/valid? ::dice-roll 0)))
         (is (s/valid? ::dice-roll 1))
         (is (s/valid? ::dice-roll 2))
