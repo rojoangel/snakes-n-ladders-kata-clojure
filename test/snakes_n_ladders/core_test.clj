@@ -30,11 +30,20 @@
   (testing "Moves are determined by dice rolls"
     (testing "When the player rolls a dice then the result should be between 1-6 inclusive"
       (do (s/def ::dice-roll (dice/roll-spec :min 1 :max 6))
-        (is (not (s/valid? ::dice-roll 0)))
-        (is (s/valid? ::dice-roll 1))
-        (is (s/valid? ::dice-roll 2))
-        (is (s/valid? ::dice-roll 3))
-        (is (s/valid? ::dice-roll 4))
-        (is (s/valid? ::dice-roll 5))
-        (is (s/valid? ::dice-roll 6))
-        (is (not (s/valid? ::dice-roll 7)))))))
+          (is (not (s/valid? ::dice-roll 0)))
+          (is (s/valid? ::dice-roll 1))
+          (is (s/valid? ::dice-roll 2))
+          (is (s/valid? ::dice-roll 3))
+          (is (s/valid? ::dice-roll 4))
+          (is (s/valid? ::dice-roll 5))
+          (is (s/valid? ::dice-roll 6))
+          (is (not (s/valid? ::dice-roll 7)))))
+    (testing "Given the player rolls a 4 when they move their token then the token should move 4 spaces"
+      (let [always-rolls-4-fn (fn [] 4)]
+        (-> (new-game :rolling-fn always-rolls-4-fn)
+            (place-token)
+            (roll-dice)
+            (move-token)
+            (current-token)
+            (= 5)
+            (is))))))
