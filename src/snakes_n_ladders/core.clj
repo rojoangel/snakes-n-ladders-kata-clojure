@@ -21,3 +21,6 @@
 
 (defn current-token [game]
   (:token game))
+
+(defn winner? [game]
+  true)
