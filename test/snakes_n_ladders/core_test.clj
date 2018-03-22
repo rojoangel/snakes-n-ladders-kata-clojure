@@ -2,18 +2,6 @@
   (:require [clojure.test :refer :all]
             [snakes-n-ladders.core :refer :all]))
 
-(defn new-game []
-  {})
-
-(defn place-token [game]
-  (assoc game :token 1))
-
-(defn move-token [game spaces]
-  (update game :token #(+ % spaces)))
-
-(defn current-token [game]
-  (:token game))
-
 (deftest moving-your-token
   (testing "When the token is placed on the board then the token is on square 1"
     (-> (new-game)
