@@ -55,4 +55,9 @@
         (let [game (-> game-with-token-on-square-97
                        (move-token 3))]
           (is (= 100 (current-token game)))
-          (is (winner? game)))))))
+          (is (winner? game))))
+      (testing "Given the token is on square 97 When the token is moved 4 spaces Then the token is on square 97 And the player has not won the game"
+        (let [game (-> game-with-token-on-square-97
+                       (move-token 4))]
+          (is (= 97 (current-token game)))
+          (is (not (winner? game))))))))
