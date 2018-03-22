@@ -16,11 +16,23 @@
 
 (deftest moving-your-token
   (testing "When the token is placed on the board then the token is on square 1"
-    (let [game (new-game)]
-      (is (= 1 (current-token (place-token game))))))
+    (-> (new-game)
+        (place-token)
+        (current-token)
+        (= 1)
+        (is)))
   (testing "Given the token is on square 1 when the token is moved 3 spaces then the token is on square 4"
-    (let [game (place-token (new-game))]
-      (is (= 4 (current-token (move-token game 3))))))
+    (-> (new-game)
+        (place-token)
+        (move-token 3)
+        (current-token)
+        (= 4)
+        (is)))
   (testing "Given the token is on square 1 when the token is moved 3 spaces And then it is moved 4 spaces Then the token is on square 8"
-    (let [game (place-token (new-game))]
-      (is (= 8 (current-token (move-token (move-token game 3) 4)))))))
+    (-> (new-game)
+        (place-token)
+        (move-token 3)
+        (move-token 4)
+        (current-token)
+        (= 8)
+        (is))))
